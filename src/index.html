@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>TrelloAngularApp</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+  <script src="https://api.trello.com/1/client.js?key=2b07d968e083f4a28a283a9370df0c26"></script>
+  <script type="text/javascript">
+    var authenticationSuccess = function() { console.log('Successful authentication'); };
+    var authenticationFailure = function() { console.log('Failed authentication'); };
+    
+    function myAuthentication() {
+        Trello.authorize({
+        type: 'redirect',
+        name: 'Trello Angular App',
+        scope: {
+            read: 'true',
+            write: 'true' },
+        expiration: 'never',
+        success: authenticationSuccess,
+        error: authenticationFailure
+        });
+    }
+
+    function myDesAuthentication() {
+        Trello.deauthorize();
+    }
+
+    function getMyToken() {
+      var token = Trello.token();
+      alert(token);
+    }
+    
+
+</script>
+</head>
+<body>
+  <app-root>Loading...</app-root>
+</body>
+</html>
