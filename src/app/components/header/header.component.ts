@@ -10,6 +10,7 @@ import {LoginService} from '../../services/login.service';
 export class HeaderComponent implements OnInit {
   
   isLogged: boolean;
+  name: String;
 
   constructor(private router: Router, private loginService: LoginService) {
   }
