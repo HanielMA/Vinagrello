@@ -12,10 +12,13 @@
       <ul class="nav navbar-nav">
         <li class="active"><a href="#">Home</a></li>
       </ul>
-      <form class="navbar-form navbar-right">
+      <div class="navbar-right">
         <button  *ngIf="!isLogged" type="submit" class="btn btn-success" (click)="login()">Sign In</button>
-        <button  *ngIf="isLogged" type="submit" class="btn btn-danger" (click)="logout();">Log Out</button>
-      </form>
+        <div *ngIf="isLogged" >
+          <a class="navbar-brand"> Hola {{name}} </a>
+          <button type="submit" class="btn btn-danger" (click)="logout();">Log Out</button>
+        </div>
+      </div>
     </div>
   </div>
 </nav>
