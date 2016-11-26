@@ -7,15 +7,16 @@ declare var Trello;
 @Injectable()
 export class LoginService {
 
-isLogged: boolean;
-
+  private authEvents: Subject<AuthEvent>;
+  
   constructor() {
+    this.authEvents = new Subject<AuthEvent>();
   }
   
   ngOnInit() {
-    this.isLogged = false;
   }
-  login(): boolean {
+
+  login(): void {
     Trello.authorize({
       type: 'popup',
       name: 'Trello Angular App',
@@ -25,22 +26,23 @@ isLogged: boolean;
       },
       expiration: 'never',
       success: () => {
-        this.isLogged = true;
+        localStorage.setItem('jwt',"12345678");
+        this.authEvents.next(new DidLogin());
       },
       error: () => {
-        this.isLogged = false;
+        localStorage.setItem('jwt',null);
       },
     });
-    return this.isLogged;
   }
  
-  logout(): boolean {
+  logout(): void {
     Trello.deauthorize();
-    return this.isLogged = false;
+    localStorage.removeItem('jwt');
+    this.authEvents.next(new DidLogout());
   }
 
   isSignedIn(): boolean {
-    return this.isLogged;
+    return localStorage.getItem('jwt') !== null;
   }
 
   getMyToken() {
@@ -48,4 +50,15 @@ isLogged: boolean;
     alert(token);
   }
 
+  get events(): Observable<AuthEvent> {
+    return this.authEvents;
+  }
+
 }
+
+export class DidLogin {
+}
+export class DidLogout {
+}
+
+export type AuthEvent = DidLogin | DidLogout;
