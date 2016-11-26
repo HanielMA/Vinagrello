@@ -1,0 +1,21 @@
+<nav class="navbar navbar-inverse navbar-static-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" [routerLink]="['/']">Vinagrello</a>
+    </div>
+    <div id="navbar" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+      </ul>
+      <form class="navbar-form navbar-right">
+        <button  *ngIf="!isLogged" type="submit" class="btn btn-success" (click)="login()">Sign In</button>
+        <button  *ngIf="isLogged" type="submit" class="btn btn-danger" (click)="logout();">Log Out</button>
+      </form>
+    </div>
+  </div>
+</nav>
