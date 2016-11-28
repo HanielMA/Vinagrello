@@ -9,6 +9,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { LoginService } from './services/login.service';
 import { HomeComponent } from './components/home/home.component';
 import { UserInfoComponent } from './components/user-info/user-info.component';
+import { UserInfoService } from './services/user-info.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { UserInfoComponent } from './components/user-info/user-info.component';
     RouterModule.forRoot(ROUTES)
   ],
   providers: [
-    LoginService
+    LoginService,
+    UserInfoService
     ],
   bootstrap: [AppComponent]
 })

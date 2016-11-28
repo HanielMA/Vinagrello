@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from "@angular/router";
-import {LoginService} from '../../services/login.service';
+import { Router } from "@angular/router";
+import { LoginService } from '../../services/login.service';
+import { UserInfoService } from '../../services/user-info.service';
+import { HttpModule, JsonpModule } from '@angular/http';
+import { Http, Response } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+import { User } from '../../shared/classes/User';
+
 
 @Component({
   selector: 'app-user-info',
@@ -8,23 +14,26 @@ import {LoginService} from '../../services/login.service';
   styleUrls: ['./user-info.component.css']
 })
 export class UserInfoComponent implements OnInit {
-  
-  isLogged: boolean;
-  url: String;
-  name: String;
-  userName: String;
 
-  constructor(private router: Router, private loginService: LoginService) { }
+  isLogged: boolean;
+
+  user: User = new User();
+
+  constructor(private userInfoService: UserInfoService, private router: Router, private loginService: LoginService) { }
 
   ngOnInit() {
-    this.url = "https://trello-avatars.s3.amazonaws.com/08e2cee292565090870a5e2975fa017c/170.png";
     this.isLogged = this.loginService.isSignedIn();
-    if(this.isLogged === false) {
+
+    if (this.isLogged === false) {
       this.router.navigate(['/']);
     }
-     this.loginService.events.subscribe(() => {
+
+    this.loginService.events.subscribe(() => {
       this.isLogged = this.loginService.isSignedIn();
     });
-  }
 
+    this.userInfoService.getUser().subscribe(res => {
+      this.user = res;
+    });
+  }
 }

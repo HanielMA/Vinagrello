@@ -8,11 +8,11 @@ var port = process.env.PORT || 5000; 				// set the port
 app.use(express.static(__dirname + '/dist'));
 
 // proxy api request
-/*app.all("/api/*", (req, res) => {
+app.all("/api/*", (req, res) => {
   apiProxy.web(req, res, {
     target: 'http://localhost:8080' || process.env.BACK_URL
   });
-});*/
+});
 
 // fallback to index.html for SPA.
 app.get('*', (req, res) => {
