@@ -15,7 +15,7 @@
       <div class="navbar-right">
         <button  *ngIf="!isLogged" type="submit" class="btn btn-success" (click)="login()">Sign In</button>
         <div *ngIf="isLogged" >
-          <a class="navbar-brand"> Hola {{name}} </a>
+          <a class="navbar-brand" [routerLink]="['/me']"> Hola {{name}} </a>
           <button type="submit" class="btn btn-danger" (click)="logout();">Log Out</button>
         </div>
       </div>
